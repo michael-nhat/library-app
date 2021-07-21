@@ -1,7 +1,7 @@
 // const { nhatConnect } = require("../models/mysql-connect.js");
 
 // const sql = require("../models/mysql-connect.js").connection;
-const sql = require("../models/mysql-connect.js");
+const sql = require("../models/mysql-connect2.js");
 
 const Customer = function(customer) {
     this.email = customer.email;
@@ -10,7 +10,10 @@ const Customer = function(customer) {
 };
 
 
-Customer.create = (newCustomer, result) => {
+
+// await sql.query(`INSERT INTO customers (email, name, active) VALUES (${newCustomer.email}, ${newCustomer.name}, ${newCustomer.active.toString()})`)
+
+Customer.create = async (newCustomer, result) => {
     sql.query("INSERT INTO customers SET ?", newCustomer, (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -22,6 +25,32 @@ Customer.create = (newCustomer, result) => {
         result(null, { id: res.insertId, ...newCustomer });
     });
 };
+
+Customer.create2 = (newCustomer) => new Promise(
+    (resolve, reject) => {
+    sql.query(`INSERT INTO customers (email, name, active) VALUES ("${newCustomer.email}", "${newCustomer.name}", "${newCustomer.active}")`)
+        .then(data => {
+            console.log(".then ok");
+            resolve({ id: data.insertId, ...newCustomer });
+        })
+        .catch(err => {
+            console.log("Error when create" + err);
+            reject(err);
+        });
+
+});
+
+Customer.create3 = newCustomer => new Promise(
+    async (resolve, reject) => {
+        try {
+            data = await sql.query(`INSERT INTO customers (email, name, active) VALUES ("${newCustomer.email}", "${newCustomer.name}", "${newCustomer.active}")`);
+            resolve({ id: data.insertId, ...newCustomer });
+        }
+        catch (err){
+            reject(err);
+        }
+    }
+)
 
 Customer.findById = (customerId, result) => {
     sql.query(`SELECT * FROM customers WHERE id = ${customerId}`, (err, res) => {
@@ -42,7 +71,7 @@ Customer.findById = (customerId, result) => {
 };
 
 Customer.getAll = result => {
-    sql.query("SELECT * FROM customers", (err, res) => {
+    sql.connection.query("SELECT * FROM customers", (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);

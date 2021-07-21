@@ -23,6 +23,31 @@ exports.create = (req, res)=>{
     });
 };
 
+exports.create2 = (req, res) => {
+    if (!req.body) {
+        res.status(400).send({
+            message: 'Content can not be empty!'
+        });
+    }
+
+    const customer = new Customer({
+        email: req.body.email,
+        name: req.body.name,
+        active: req.body.active
+    });
+
+    Customer.create3(customer)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error while creating Customer"
+            });
+        });
+};
+
 exports.findAll = (req, res) => {
 
     Customer.getAll((err, data)=>{

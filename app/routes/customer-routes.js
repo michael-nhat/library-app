@@ -22,7 +22,7 @@ const customerController = require("../controllers/customer-controller.js");
   *     description: fail to get all cats
   */
 router.get("/", customerController.findAll);
-router.post("/", customerController.create);
+router.post("/", customerController.create2);
 
 router.get("/:customerId", customerController.findOne);
 
