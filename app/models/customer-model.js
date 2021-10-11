@@ -1,7 +1,78 @@
 // const { nhatConnect } = require("../models/mysql-connect.js");
 
 // const sql = require("../models/mysql-connect.js").connection;
-const sql = require("../models/mysql-connect2.js");
+const sql2 = require("../models/mysql-connect.js");
+const sql = require("../models/mysql-connect.js");
+
+
+// this stupid jump into model
+/**
+ * @swagger
+ * definitions:
+ *   Customer:
+ *     type: object
+ *     properties:
+ *       email:
+ *         type: string
+ *         description: his email
+ *         example: 'abc@gmail.com'
+ *       name:
+ *         type: string
+ *         description: his name
+ *         example: 'Michael Nhat'
+ *       activate:
+ *         type: interger
+ *         description: ppp
+ *         example: '1'
+ *     required:
+ *       - email
+ *       - name
+ */
+
+// /**
+//  * @swagger
+//  * components:
+//  *   schemas:
+//  *     Customer:
+//  *       type: object
+//  *       properties:
+//  *         email:
+//  *           type: string
+//  *           description: private email
+//  *           example: 'abc@gmail.com'
+//  *         name:
+//  *           type: string
+//  *           description: private name
+//  *           example: 'Michael Nhat'
+//  *         activate:
+//  *           type: interger
+//  *           description: ppp
+//  *           example: '1'
+//  *       required:
+//  *         - email
+//  *         - name
+//  */
+
+/**
+ * @swagger
+ * definitions:
+ *   Author:
+ *     type: object
+ *     properties:
+ *       name:
+ *         type: string
+ *         description: private name of pet
+ *         example: 'Hoang van nhat'
+ *       year:
+ *         type: string
+ *         description: private name of pet
+ *         example: '2000'
+ *       nickname:
+ *         type: string
+ *         description: private name of pet
+ *         example: 'xxxyyyzzz'
+ */
+
 
 const Customer = function(customer) {
     this.email = customer.email;
@@ -28,7 +99,7 @@ Customer.create = async (newCustomer, result) => {
 
 Customer.create2 = (newCustomer) => new Promise(
     (resolve, reject) => {
-    sql.query(`INSERT INTO customers (email, name, active) VALUES ("${newCustomer.email}", "${newCustomer.name}", "${newCustomer.active}")`)
+    sql2.query(`INSERT INTO customers (email, name, active) VALUES ("${newCustomer.email}", "${newCustomer.name}", "${newCustomer.active}")`)
         .then(data => {
             console.log(".then ok");
             resolve({ id: data.insertId, ...newCustomer });
@@ -43,10 +114,12 @@ Customer.create2 = (newCustomer) => new Promise(
 Customer.create3 = newCustomer => new Promise(
     async (resolve, reject) => {
         try {
-            data = await sql.query(`INSERT INTO customers (email, name, active) VALUES ("${newCustomer.email}", "${newCustomer.name}", "${newCustomer.active}")`);
+            console.log(".then ok");
+            data = await sql2.query(`INSERT INTO customers (email, name, active) VALUES ("${newCustomer.email}", "${newCustomer.name}", "${newCustomer.active}")`);
             resolve({ id: data.insertId, ...newCustomer });
         }
         catch (err){
+            console.log("Error when create" + err);
             reject(err);
         }
     }
@@ -71,7 +144,7 @@ Customer.findById = (customerId, result) => {
 };
 
 Customer.getAll = result => {
-    sql.connection.query("SELECT * FROM customers", (err, res) => {
+    sql.query("SELECT * FROM customers", (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);

@@ -1,0 +1,122 @@
+DROP DATABASE lib1;
+
+CREATE DATABASE lib1 CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+USE lib1;
+USE lib1;
+USE lib1;
+USE lib1;
+USE lib1;
+USE lib1;
+USE lib1;
+USE lib1;
+
+CREATE TABLE type_user (
+id int(6) AUTO_INCREMENT PRIMARY KEY,
+permission_code varchar(6),
+description varchar(300)
+);
+
+CREATE TABLE author (
+id int(6) AUTO_INCREMENT PRIMARY KEY,
+name varchar(50),
+birth_year int(4),
+death_year int(4),
+stage_name varchar(50),
+national varchar(30)
+);
+
+CREATE TABLE publisher (
+id int(6) AUTO_INCREMENT PRIMARY KEY,
+name varchar(50),
+adress varchar(100),
+website varchar(30),
+phone varchar(20)
+);
+
+CREATE TABLE location (
+id int(6) AUTO_INCREMENT PRIMARY KEY,
+description varchar(300)
+);
+
+CREATE TABLE tag (
+name varchar(30) PRIMARY KEY,
+description varchar(300)
+);
+
+CREATE TABLE book (
+id int(6) AUTO_INCREMENT PRIMARY KEY,
+index_book int(6),
+publisher_id int(6) , foreign key (publisher_id) references publisher(id),
+author_id int(6) , foreign key (author_id) references author(id),
+description text(5),
+year int(4),
+version varchar(30),
+price int(10),
+language varchar(30),
+location_id int(6) , foreign key (location_id) references location(id),
+status bool
+);
+
+CREATE TABLE book_tag (
+id_book int(6),
+tag_name varchar(30),
+foreign key (id_book) references book(id),
+foreign key (tag_name) references tag(name)
+);
+
+CREATE TABLE student (
+id int(6) AUTO_INCREMENT PRIMARY KEY,
+name varchar(50),
+password varchar(50),
+student_code varchar(10),
+class varchar(30),
+email varchar(30),
+id_type_user int(6) , foreign key (id_type_user) references type_user(id)
+);
+
+CREATE TABLE user (
+id int(6) AUTO_INCREMENT PRIMARY KEY,
+name varchar(50),
+password varchar(50),
+description varchar(300),
+id_type_user int(6) , foreign key (id_type_user) references type_user(id)
+);
+
+CREATE TABLE record (
+id int(6) AUTO_INCREMENT PRIMARY KEY,
+id_book int(6) , foreign key (id_book) references book(id),
+id_student int(6) , foreign key (id_student) references student(id),
+id_user int(6) , foreign key (id_user) references user(id),
+date_start TIMESTAMP,
+date_end TIMESTAMP
+);
+
+1 api số lượng sách theo từng loại
+
+đầu mục sách
+- *idDauMucSach
+- name
+- publisherId
+- authorId
+- description
+- price
+- 
+
+instance sách
+- *idInstance
+- idLocation
+- availableStatus
+
+thêm 1 trường đầu mục sách vào bảng sách
+api chọn đầu mục sách
+
+mysql store bool field to tinyInt(1) in database, with value TRUE and FALSE
+
+apperance
+qualificated
+knowledge about nutrition and health
+
+
+mysql: force repeat foreign key, so to get uniformity, lest repeat all relation ship, include primary key
+mysql[db_name] >> , primary key (id)

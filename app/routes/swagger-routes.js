@@ -6,19 +6,33 @@ const swaggerJSDoc = require('swagger-jsdoc');
 
 const options = {
     swaggerDefinition: {
+        // swagger: '2.0',
+        // this permit definitions
+
+        // openapi: '3.5.51',
+        // components: {},
+        // this is like 3.0 , stupid!
+
+
+        // openapi: '3.0.1',
+        // components: {},
+        // this not permit definition
+
+        // hoac khong chi dinh no la cai gi ca
+
         info: {
             title: 'REST - Swagger',
             version: '1.0.0',
             description: 'REST API with Swagger doc',
             contact: {
-                name: 'Hoang Huu Manh',
-                email: 'hoanghuuanh19991@gmail.com',
+                name: 'Hoang Van Nhat',
+                email: 'nhathoang.haiphong@gmail.com',
             },
         },
         tags: [
             {
-                name: 'My Farm',
-                description: 'All apis with my farm',
+                name: 'My Library',
+                description: 'All apis with my library',
             },
         ],
         schemes: ['http'],
@@ -28,8 +42,6 @@ const options = {
 };
 
 const swaggerDocs = swaggerJSDoc(options);
-
-
 
 route.use('/', swaggerUI.serve);
 route.get('/', swaggerUI.setup(swaggerDocs));

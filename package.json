@@ -1,19 +1,23 @@
 {
-  "name": "mongodb-nodejs-crud",
+  "name": "library-app",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "nodemon-profile": "nodemon run-server.js"
+    "main-profile": "node server.js",
+    "autorestart-profile": "nodemon run-server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "consolidate": "^0.16.0",
+    "ejs": "^3.1.6",
+    "jade": "^1.11.0",
     "mongoose": "^5.13.2",
     "mysql": "^2.18.1",
+    "pug": "^3.0.2",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.1.6"
   }
