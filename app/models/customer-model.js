@@ -1,7 +1,7 @@
 // const { nhatConnect } = require("../models/mysql-connect.js");
 
 // const sql = require("../models/mysql-connect.js").connection;
-const sql2 = require("../models/mysql-connect.js");
+const sql2 = require("../models/mysql-connect2.js");
 const sql = require("../models/mysql-connect.js");
 
 
