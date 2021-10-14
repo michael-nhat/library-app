@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "main-profile": "node server.js",
-    "autorestart-profile": "nodemon run-server.js"
+      "autorestart-profile": "nodemon run-server.js",
+      "start": "node run-server.js"
   },
   "keywords": [],
   "author": "",
